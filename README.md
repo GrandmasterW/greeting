@@ -13,7 +13,7 @@ If you want to try the example source, do the following steps (on Mac OS X, Java
 1. (Only if you want do it all by yourself:) Create the project with leiningen: lein new reagent-frontend greeting
 2. (Otherwise download or clone the project) change into directory greeting (cd greeting)
 3. Start figwheel for REPL and autobuild: lein figwheel s
-4. Wait for figwheel message
+4. Wait for figwheel message: "Prompt will show when Figwheel connects to your application"
 5. Open a browser window and load the start page file: public/index.html, you may want to reload after a few seconds, if it shows an error message
 6. Wait for figwheel to connect the REPL to the browser, until you see the REPL command line
 
