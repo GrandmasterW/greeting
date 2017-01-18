@@ -1,55 +1,76 @@
 (ns greeting.core
     (:require [reagent.core :as reagent]))
 
-(defonce atomname (reagent/atom "stranger"))
+(defonce username (reagent/atom "stranger")) ; the name to greet
 
-(defn greet [myname]
+(defonce automode (reagent/atom true)) ; true if live update
+
+(def name-field "nameinput") ; const for the input field ID
+
+
+(defn logc [a & b]
+  (.log js/console a))
+
+(defn reset-field []
+    (reset! username (.-value (.getElementById js/document name-field))))
+
+(defn changename [p]
+  (if @automode
+    (reset! username (-> p .-target .-value))))
+
+(defn changemode [p]
+    (swap! automode not))
+
+; -----
+
+(defn greet [myname] "generates a greeting for name"
   [:div
    [:h2 "Hello, " myname "!"]
    [:br]
    [:p "So, that's not you?"]
    [:p "Then, what is your name? "]])
 
-;; -------------------------
-;; Views
-
-
-; manual button section
-(defn input-name-field-button []
-    [:input.input {:id "name-in"
-             :type "text"}])
-
-(defn reset-field []
-    (reset! atomname (.-value (.getElementById js/document "name-in"))))
 
 (defn confirm-button []
   [:button.button
    {:type "button"
-    :on-click reset-field}
+    :on-click reset-field
+     :disabled @automode}  ; disabled in automode
    "OK"])
 
-(defn manual-button []
-  [:div.mydiv
-   [input-name-field-button]
-   [confirm-button]])
+(defn checkbox []
+  [:label
+   [:input.input
+    {:type "checkbox"
+     :name :cb
+     :value :live
+     ; :checked @automode
+     :defaultChecked @automode
+     :on-click changemode}]
+   "live update"])
 
-; live change
 
-(defn input-name-field-live []
-  [:div.mydiv
-   [:input.input {:id "name-live"
-            :type "text"
-            :value @atomname
-            :on-change #(reset! atomname (-> % .-target .-value))}]])
+(defn input-field []
+  (if @automode
+    [:div.mydiv
+     [:input.input {:id name-field
+                    :type "text"
+                    :value @username
+                    :on-change changename}]]
+    [:div.mydiv
+     [:input.input {:id name-field
+                    :type "text"}]]))
+
 
 ; --------------
 
 (defn home-page []
   [:div
    [:h1 "Greeting example"]
-   [greet @atomname]
-   [manual-button]
-   [input-name-field-live]])
+   [greet @username]
+   [input-field]
+   [checkbox]
+   [confirm-button]])
 
 
 ;; -------------------------
