@@ -31,7 +31,11 @@ input {
 }
 
 mydiv {
-  width: 50;
+  font-size: 1.5em;
+}
+
+label {
+  font-size: 1.5em;
 }
 
 button {
