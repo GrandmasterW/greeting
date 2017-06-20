@@ -11,8 +11,8 @@ It uses reagent-frontend setting together with the figwheel environment.
 If you want to try the example source, do the following steps (on Mac OS X, Java installed, Leiningen 2.7.1 on Java 1.8.0_77)
 
 1. (Only if you want do it all by yourself:) Create the project with leiningen: lein new reagent-frontend greeting
-2. (Otherwise download or clone the project) change into directory greeting (cd greeting)
-3. Start figwheel for REPL and autobuild: lein figwheel s
+2. (Otherwise download or clone the project) change into directory greeting (cd greeting), add a missing directory (unix: mkdir env/dev/cljs)
+3. Start figwheel for REPL and autobuild: lein figwheel
 4. Wait for figwheel message: "Prompt will show when Figwheel connects to your application"
 5. Open a browser window and load the start page file: public/index.html, you may want to reload after a few seconds, if it shows an error message
 6. Wait for figwheel to connect the REPL to the browser, until you see the REPL command line
